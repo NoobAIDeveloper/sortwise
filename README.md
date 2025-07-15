@@ -3,7 +3,7 @@
 
 SortWise is a powerful and intuitive desktop application that helps you automatically organize your photos and videos into a clean, structured directory based on their metadata. Say goodbye to messy photo folders and hello to a perfectly organized collection!
 
-![SortWise Screenshot](httpsg-releases/v0.1.0/sortwise-screenshot.png) <!-- Placeholder for a screenshot of the app -->
+<!-- Placeholder for a screenshot of the app -->
 
 ---
 
