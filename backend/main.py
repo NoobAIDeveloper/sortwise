@@ -104,11 +104,23 @@ def sort_files(options):
 
                         tags = get_exif_data(file_path)
 
-                        if sort_options.get('exifDate') and 'EXIF DateTimeOriginal' in tags:
-                            date = str(tags['EXIF DateTimeOriginal'])
-                            year = date.split(':')[0]
-                            month = date.split(':')[1]
-                            target_subfolder = os.path.join(target_subfolder, year, month)
+                        if sort_options.get('exifDate'):
+                            date_str = None
+                            if 'EXIF DateTimeOriginal' in tags:
+                                date_str = str(tags['EXIF DateTimeOriginal'])
+                            
+                            if date_str and len(date_str) >= 7:
+                                year = date_str[0:4]
+                                month = date_str[5:7]
+                                if year.isdigit() and month.isdigit():
+                                    target_subfolder = os.path.join(target_subfolder, year, month)
+                            else:
+                                # Fallback to file system date
+                                import datetime
+                                file_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path))
+                                year = str(file_date.year)
+                                month = str(file_date.month).zfill(2)
+                                target_subfolder = os.path.join(target_subfolder, year, month)
 
                         if sort_options.get('cameraModel') and 'Image Model' in tags:
                             model = str(tags['Image Model']).replace(' ', '_')
@@ -147,6 +159,7 @@ def sort_files(options):
                                     continue
 
                         if target_subfolder:
+                            print(f'Moving {filename} to {target_subfolder}')
                             # Create the full destination path
                             destination_folder = os.path.join(folder, target_subfolder)
                             if not os.path.exists(destination_folder):

@@ -18,3 +18,10 @@ build/
 # Other
 .DS_Store
 *.log
+PRD.docx
+PRD.txt
+
+
+# Unit test files
+frontend/src/App.test.js
+backend/test_main.py
