@@ -2,8 +2,7 @@
   "name": "sortwise",
   "version": "0.1.0",
   "private": true,
-  "main": "public/electron.js",
-  
+  "main": "main.js",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,7 +25,6 @@
     "electron-pack": "electron-builder",
     "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && NODE_ENV=development npm run electron-start\""
   },
-  
   "browserslist": {
     "production": [
       ">0.2%",

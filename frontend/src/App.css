@@ -1,38 +1,60 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: black;
+  color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.title {
+  text-align: center;
+}
+
+.select-button {
+  margin-top: 20px;
+}
+
+.options-container {
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.sort-button {
+  margin-top: 20px;
+}
+
+.undo-button {
+  margin-top: 10px;
+}
+
+.progress-container {
+  width: 50%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+.progress-bar::-webkit-progress-bar {
+  background-color: black;
+}
+
+.progress-bar::-webkit-progress-value {
+  background-color: green;
+}
+
+.progress-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 2px;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
