@@ -185,7 +185,7 @@ def sort_files(options):
                         writer.writerow([filename, file_path, '', f'Error: {e}'])
                         continue
 
-    return {"status": "success", "message": "Files sorted successfully."}
+    return {"status": "success", "message": "Files sorted successfully.", "logFile": log_file}
 
 def undo_sort(log_file):
     if not os.path.exists(log_file):

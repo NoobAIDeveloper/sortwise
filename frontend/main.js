@@ -112,7 +112,8 @@ ipcMain.handle('undo:sort', async (event, logFile) => {
       ? path.join(__dirname, '../backend/main.py')
       : path.join(process.resourcesPath, 'main');
 
-    const python = spawn(isDev ? 'python3' : backendPath, isDev ? [backendPath, 'undo', logFile] : ['undo', logFile]);
+    const pythonExecutable = isDev ? path.join(__dirname, '../venv/bin/python') : backendPath;
+    const python = spawn(pythonExecutable, isDev ? [backendPath, 'undo', logFile] : ['undo', logFile]);
 
     let stdoutData = '';
 
