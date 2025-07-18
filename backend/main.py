@@ -113,14 +113,20 @@ def sort_files(options):
                                 year = date_str[0:4]
                                 month = date_str[5:7]
                                 if year.isdigit() and month.isdigit():
-                                    target_subfolder = os.path.join(target_subfolder, year, month)
+                                    if date_sort_option == 'yearMonth':
+                                        target_subfolder = os.path.join(target_subfolder, year, month)
+                                    else:
+                                        target_subfolder = os.path.join(target_subfolder, year)
                             else:
                                 # Fallback to file system date
                                 import datetime
                                 file_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path))
                                 year = str(file_date.year)
-                                month = str(file_date.month).zfill(2)
-                                target_subfolder = os.path.join(target_subfolder, year, month)
+                                if options.get('dateSortOption') == 'yearMonth':
+                                    month = str(file_date.month).zfill(2)
+                                    target_subfolder = os.path.join(target_subfolder, year, month)
+                                else:
+                                    target_subfolder = os.path.join(target_subfolder, year)
 
                         if sort_options.get('cameraModel') and 'Image Model' in tags:
                             model = str(tags['Image Model']).replace(' ', '_')
@@ -191,6 +197,7 @@ def undo_sort(log_file):
     if not os.path.exists(log_file):
         return {"status": "error", "message": "Log file not found."}
 
+    destination_folders = set()
     with open(log_file, 'r') as f:
         reader = csv.reader(f)
         header = next(reader)  # Skip header
@@ -201,6 +208,11 @@ def undo_sort(log_file):
                 destination_path = os.path.join(destination_folder, original_filename)
                 if os.path.exists(destination_path):
                     shutil.move(destination_path, source_path)
+                destination_folders.add(destination_folder)
+
+    for folder in sorted(list(destination_folders), reverse=True):
+        if os.path.exists(folder) and not os.listdir(folder):
+            os.rmdir(folder)
 
     return {"status": "success", "message": "Undo operation completed successfully."}
 

@@ -16,6 +16,7 @@ function App() {
   const [conflictResolution, setConflictResolution] = useState('rename');
   const [progress, setProgress] = useState(0);
   const [logFile, setLogFile] = useState(null);
+  const [dateSortOption, setDateSortOption] = useState('yearMonth');
 
   useEffect(() => {
     window.electronAPI.onSortProgress((event, progress) => {
@@ -50,6 +51,7 @@ function App() {
     const options = {
       folders: folders,
       sortOptions: sortOptions,
+      dateSortOption: dateSortOption,
       fileOperation: fileOperation,
       conflictResolution: conflictResolution,
     };
@@ -87,6 +89,30 @@ function App() {
             />
             EXIF Date
           </label>
+          {sortOptions.exifDate && (
+            <div style={{ marginLeft: '20px' }}>
+              <label>
+                <input
+                  type="radio"
+                  name="dateSortOption"
+                  value="yearMonth"
+                  checked={dateSortOption === 'yearMonth'}
+                  onChange={(e) => setDateSortOption(e.target.value)}
+                />
+                Year and Month
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="dateSortOption"
+                  value="year"
+                  checked={dateSortOption === 'year'}
+                  onChange={(e) => setDateSortOption(e.target.value)}
+                />
+                Year Only
+              </label>
+            </div>
+          )}
           <label>
             <input
               type="checkbox"
